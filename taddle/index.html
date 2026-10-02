@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taddle</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <strong>Taddle</strong>
+    <span class="muted" id="saveStatus">Autosaved locally</span>
+  </div>
+  <div class="actions">
+    <button id="btnNew" class="ghost">New report</button>
+    <button id="btnLoad" class="ghost">Load draft</button>
+    <button id="btnSave" class="ghost">Save draft</button>
+    <button id="btnExport" class="primary">Export .docx</button>
+    <input type="file" id="fileLoad" accept=".json,application/json" hidden>
+  </div>
+</header>
+
+<div id="banner" class="banner" hidden></div>
+
+<main class="layout">
+  <section class="form" id="form">
+
+    <details class="card" id="cardMeta">
+      <summary><h2>Memo header</h2><span class="muted">To / From / Date / time zone</span></summary>
+      <div class="grid2">
+        <label>Team number<input data-meta="team" placeholder="07"></label>
+        <label>Time zone label
+          <select data-meta="tz">
+            <option>EST</option><option>EDT</option><option selected>CST</option><option>CDT</option>
+            <option>MST</option><option>MDT</option><option>PST</option><option>PDT</option><option>UTC</option>
+          </select>
+        </label>
+        <label>To<input data-meta="to"></label>
+        <label>From<input data-meta="from"></label>
+        <label>Date<input type="date" data-meta="date"></label>
+        <label>Subject<input data-meta="subject"></label>
+      </div>
+    </details>
+
+    <div class="card">
+      <h2>1. What happened?</h2>
+      <p class="muted small">Pick one or more playbooks. Chain them to match what happened: <em>how they got in</em> → <em>what they did</em> → <em>how they stayed</em>.</p>
+      <div id="modulePicker"></div>
+    </div>
+
+    <div class="card" id="cardVars" hidden>
+      <h2>2. Playbook details</h2>
+      <p class="muted small">Values the selected playbooks drop into the text.</p>
+      <div class="grid2" id="varInputs"></div>
+    </div>
+
+    <div class="card">
+      <h2>3. Incident details <span class="weight">5%</span></h2>
+      <div class="grid2">
+        <label>Affected host<input data-detail="affected_host" placeholder="goomonsu, splunk"></label>
+        <label>Affected account<input data-detail="affected_account" placeholder="sysadmin"></label>
+        <label>Source IP address<input data-detail="source_ip" placeholder="10.128.51.9"></label>
+        <label>Destination IP address<input data-detail="dest_ip" placeholder="172.20.242.40"></label>
+        <label class="span2">Port and service<input data-detail="port_service" placeholder="22/TCP – SSH"></label>
+        <label>Initial access timestamp<input type="datetime-local" step="1" data-detail="initial_access"></label>
+        <label>Remediated timestamp<input type="datetime-local" step="1" data-detail="remediated"></label>
+        <label>Service downtime start<input type="datetime-local" step="1" data-detail="downtime_start"></label>
+        <label>Service downtime end<input type="datetime-local" step="1" data-detail="downtime_end"></label>
+        <label class="check span2"><input type="checkbox" data-detail="downtime_none"> No service downtime observed</label>
+      </div>
+    </div>
+
+    <div id="sectionCards"></div>
+
+    <div class="card" id="cardSplunk" hidden>
+      <h2>Splunk searches</h2>
+      <p class="muted small">From the selected playbooks, with your incident details filled in. Screenshot the results for the Initial Access evidence.</p>
+      <div id="splunkList"></div>
+    </div>
+  </section>
+
+  <aside class="side">
+    <div class="card lint">
+      <h2>Rubric check</h2>
+      <ul id="lintList" class="lintlist"></ul>
+    </div>
+    <div class="paperwrap">
+      <div class="paper" id="preview"></div>
+    </div>
+  </aside>
+</main>
+
+<script src="lib/docx.umd.js"></script>
+<script>window.IR_PLAYBOOKS = [];</script>
+<!-- Playbooks: add a <script> line here for each new file in playbooks/ -->
+<script src="playbooks/ssh-weak-credentials.js"></script>
+<script src="playbooks/netlogon-zerologon.js"></script>
+<script src="playbooks/web-unauthorized-file.js"></script>
+<script src="playbooks/schtask-persistence.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

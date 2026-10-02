@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kudos</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <strong>Kudos</strong>
+    <span class="muted" id="saveStatus">Autosaved locally</span>
+  </div>
+  <div class="actions">
+    <button id="btnNew" class="ghost">New inject</button>
+    <button id="btnLoad" class="ghost">Load draft</button>
+    <button id="btnSave" class="ghost">Save draft</button>
+    <button id="btnExport" class="primary">Export .docx</button>
+    <input type="file" id="fileLoad" accept=".json,application/json" hidden>
+  </div>
+</header>
+
+<div id="banner" class="banner" hidden></div>
+
+<main class="layout">
+  <section class="form" id="form">
+
+    <details class="card" id="cardChecklist" open>
+      <summary><h2>Inject requirements</h2><span class="muted" id="checkCount">private — never exported</span></summary>
+      <p class="muted small">Paste the deliverables from the inject request, one per line, and tick each one off before you submit.</p>
+      <textarea id="checkText" rows="3" placeholder="- Screenshot of each server's firewall rules&#10;- Table of dropped packets per host&#10;- Explain how denied packets will be investigated"></textarea>
+      <ul id="checkList" class="checklist"></ul>
+    </details>
+
+    <details class="card" id="cardMeta" open>
+      <summary><h2>Memo header</h2><span class="muted">To / From / Date / Subject / sign-off</span></summary>
+      <div class="grid2">
+        <label>Team number<input data-meta="team" placeholder="07"></label>
+        <label>Inject number<input data-meta="injectNo" placeholder="12"></label>
+        <label>To<input data-meta="to" placeholder="CISO"></label>
+        <label>From<input data-meta="from"></label>
+        <label>Date<input type="date" data-meta="date"></label>
+        <label>Subject<input data-meta="subject"></label>
+        <label>Company name <span class="hint">(optional, used as {{company}})</span><input data-meta="company" placeholder="Utter Strength Gym"></label>
+        <label>Summary heading
+          <select data-meta="summaryLabel"><option>Summary:</option><option>Executive Summary:</option><option value="">(none)</option></select>
+        </label>
+        <label class="span2">Closing line<input data-meta="closing"></label>
+        <label>Sign-off
+          <select data-meta="signoff"><option>With Regards,</option><option>Best regards,</option><option>Thank you,</option><option>Best,</option></select>
+        </label>
+        <label>Signature<input data-meta="signature"></label>
+      </div>
+    </details>
+
+    <div class="card">
+      <h2>1. Inject type</h2>
+      <p class="muted small">Pick the closest type, then the variant. Each template gives you the structure (sections, tables, screenshot slots); replace every highlighted [[prompt]] with what your team actually did.</p>
+      <input id="typeSearch" class="search" placeholder="Search types, e.g. firewall, password, VPN">
+      <div id="typeGrid" class="types"></div>
+      <div id="variantPanel" hidden></div>
+    </div>
+
+    <details class="card" id="cardHosts">
+      <summary><h2>2. Environment hosts</h2><span class="muted" id="hostCount"></span></summary>
+      <p class="muted small">Enter once per competition. Per-host sections ("Ubuntu Ecom: [screenshot]") and table rows are built from this list. It's kept between injects.</p>
+      <div id="hostRows"></div>
+      <div class="row-actions">
+        <button class="tiny" id="btnAddHost">+ Add host</button>
+        <button class="tiny ghost" id="btnSampleHosts">Load a sample 8-host topology</button>
+      </div>
+    </details>
+
+    <div class="card" id="cardVars" hidden>
+      <h2>3. Draft details</h2>
+      <p class="muted small">Values the draft drops into its text. Anything left blank shows up highlighted.</p>
+      <div class="grid2" id="varInputs"></div>
+    </div>
+
+    <div class="card">
+      <h2>Summary</h2>
+      <textarea id="summaryText" rows="3"></textarea>
+    </div>
+
+    <div id="sectionCards"></div>
+
+    <div class="card addbar">
+      <button id="btnAddSection">+ Add section</button>
+      <span class="muted small">Insert:</span>
+      <button class="tiny" data-snippet="partial">“Unable to finish” note</button>
+      <button class="tiny" data-snippet="pleaseNote">**Please note** callout</button>
+      <button class="tiny" data-snippet="ai">AI-use disclosure</button>
+      <button class="tiny" data-snippet="sources">Sources</button>
+    </div>
+  </section>
+
+  <aside class="side">
+    <div class="paperwrap">
+      <div class="paper" id="preview"></div>
+    </div>
+  </aside>
+</main>
+
+<script src="lib/docx.umd.js"></script>
+<script>window.INJECT_TYPES = [];</script>
+<!-- Drafts: add a <script> line here for each new file in drafts/ -->
+<script src="drafts/logging-siem.js"></script>
+<script src="drafts/perimeter-firewall.js"></script>
+<script src="drafts/hardening.js"></script>
+<script src="drafts/business-memos.js"></script>
+<script src="drafts/threat-hunting.js"></script>
+<script src="drafts/policies.js"></script>
+<script src="drafts/deploy-service.js"></script>
+<script src="drafts/disaster-recovery.js"></script>
+<script src="drafts/team-feedback.js"></script>
+<script src="drafts/malware-incident.js"></script>
+<script src="drafts/accounts-passwords.js"></script>
+<script src="drafts/integrity-scripts.js"></script>
+<script src="drafts/asset-inventory.js"></script>
+<script src="drafts/host-firewalls.js"></script>
+<script src="drafts/endpoint-protection.js"></script>
+<script src="drafts/vpn.js"></script>
+<script src="drafts/network-infrastructure.js"></script>
+<script src="drafts/perimeter-scan.js"></script>
+<script src="drafts/time-sync.js"></script>
+<script src="drafts/login-banner.js"></script>
+<script src="drafts/remote-access-automation.js"></script>
+<script src="drafts/service-documentation.js"></script>
+<script src="drafts/monitoring-scripts.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
