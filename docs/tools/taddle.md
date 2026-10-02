@@ -1,12 +1,12 @@
 ---
-title: Taddle (CCDC)
+title: Taddle
 layout: default
 parent: Tools
 ---
 
 ### Taddle
 
-Taddle is a tool for writing CCDC incident response reports faster. Pick the attack type from a set of playbooks, fill in the incident details, paste in screenshots, and export the finished memo as a `.docx`. It also checks the report against the IR scoring rubric before you submit.
+Taddle is a tool for writing taddle reports faster. Pick the attack type from a set of playbooks, fill in the details, paste in screenshots, and export the finished memo as a `.docx`. It also checks the report against the scoring rubric before you submit.
 
 **[Open Taddle]({{ '/taddle/' | relative_url }})**
 
