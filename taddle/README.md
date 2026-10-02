@@ -1,6 +1,6 @@
 # Taddle
 
-Taddle is our incident report builder: a static page that builds a CCDC incident report memo as a `.docx`. It uses the same layout as our template: memo header, Incident Details table, Vulnerability / Initial Access / Impact / Eradication / Remediation, and figures with captions.
+Taddle is our IR report builder: a static page that builds a report memo as a `.docx`. It uses the same layout as our template: memo header, Incident Details table, Vulnerability / Initial Access / Impact / Eradication / Remediation, and figures with captions.
 
 Pick what happened from a list of **playbooks**, fill in the incident details, tick the steps you actually took, and paste in screenshots. The page writes the draft text, checks the report against the IR scoring rubric, and exports a Word file.
 
